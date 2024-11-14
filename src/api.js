@@ -15,28 +15,19 @@ const PlayUrl = `${proxyUrl}http://apis.data.go.kr/1383000/gmis/teenTrftServiceV
 const CareUrl = `${proxyUrl}http://apis.data.go.kr/1383000/gmis/teenRAreaServiceV2?serviceKey=${serviceKey}&pageNo=1&numOfRows=20&type=json`;
 
 // 함수로 변경
-export const fetchPlayData = async () => {
+const fetchData = async (url) => {
   try {
-    const response = await fetch(PlayUrl, option);
+    const response = await fetch(url);
     if (!response.ok) {
-      throw new Error(`Play Data fetch error: ${response.statusText}`);
+      console.error("Fetch error:", response.statusText);
+      return null;  // 실패 시 null 반환
     }
     return await response.json();
   } catch (error) {
-    console.error("Error fetching Play Data:", error);
-    throw error;
+    console.error("Error fetching data:", error);
+    return null;  // 에러가 발생한 경우 null 반환
   }
 };
 
-export const fetchCareData = async () => {
-  try {
-    const response = await fetch(CareUrl, option);
-    if (!response.ok) {
-      throw new Error(`Care Data fetch error: ${response.statusText}`);
-    }
-    return await response.json();
-  } catch (error) {
-    console.error("Error fetching Care Data:", error);
-    throw error;
-  }
-};
+export const fetchPlayData = () => fetchData(PlayUrl);
+export const fetchCareData = () => fetchData(CareUrl);
