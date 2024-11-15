@@ -1,42 +1,22 @@
-import { fetchPlayData, fetchCareData } from "../../api";
-import { useState, useEffect } from "react";
+import { careData } from "../../api";
+import { useEffect, useState } from "react";
 
 const Home = () => {
-  const [playData, setPlayData] = useState(null);
-  const [careData, setCareData] = useState(null);
-  const [error, setError] = useState(null);
+  const [care, setCare] = useState("");
 
   useEffect(() => {
-    const fetchData = async () => {
+    (async () => {
       try {
-        const playResponse = await fetchPlayData();
-        const careResponse = await fetchCareData();
-        setPlayData(playResponse);
-        setCareData(careResponse);
-      } catch (err) {
-        setError(err.message);
+        const care = await careData();
+        setCare(care);
+        console.log(care);
+      } catch (error) {
+        console.log(error);
       }
-    };
-    fetchData();
+    })();
   }, []);
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
-  if (!playData || !careData) {
-    return <div>Loading...</div>;
-  }
-
-  return (
-    <div>
-      <h1>청소년 수련시설 데이터</h1>
-      <pre>{JSON.stringify(playData, null, 2)}</pre>
-
-      <h1>청소년 쉼터 데이터</h1>
-      <pre>{JSON.stringify(careData, null, 2)}</pre>
-    </div>
-  );
+  return <div></div>;
 };
 
 export default Home;
