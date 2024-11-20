@@ -55,7 +55,7 @@ const BannerData = [
 
 const Wrap = styled.section`
   width: 100%;
-  height: 100vh;
+  height: 80vh;
   overflow: hidden;
   position: relative;
 `;
@@ -69,8 +69,9 @@ const ConWrap = styled.div`
 `;
 
 const ImgWrap = styled.div`
+  position: relative; /* 자식 요소인 TextWrap을 상대적으로 배치하기 위해 추가 */
   width: 100%;
-  height: 100vh;
+  height: 80vh;
   flex-shrink: 0;
   img {
     width: 100%;
@@ -81,12 +82,20 @@ const ImgWrap = styled.div`
 
 const TextWrap = styled.div`
   position: absolute;
-  bottom: 10%;
-  left: 5%;
+  top: 70%;
+  left: 15%;
   color: white;
   background: rgba(0, 0, 0, 0.5);
   padding: 10px 20px;
   border-radius: 8px;
+  h3 {
+    font-size: 40px;
+    font-weight: bold;
+  }
+  h5 {
+    font-size: 30px;
+    margin-top: 20px;
+  }
 `;
 
 const Banner = () => {
@@ -109,11 +118,11 @@ const Banner = () => {
       <ConWrap translateX={translateX}>
         {BannerData.map((item) => (
           <ImgWrap key={item.id}>
-            <img src={item.imgUrl} alt={item.centerNm} />
             <TextWrap>
               <h3>{item.centerNm}</h3>
               <h5>{item.program}</h5>
             </TextWrap>
+            <img src={item.imgUrl} alt={item.centerNm} />
           </ImgWrap>
         ))}
       </ConWrap>
