@@ -1,5 +1,6 @@
 import { careData } from "../../api";
 import { useEffect, useState } from "react";
+import Banner from "../../component/Banner";
 
 const Home = () => {
   const [care, setCare] = useState("");
@@ -16,7 +17,11 @@ const Home = () => {
     })();
   }, []);
 
-  return <div></div>;
+  return (
+    <>
+      <Banner />
+    </>
+  );
 };
 
 export default Home;
