@@ -1,4 +1,15 @@
 const Header = () => {
-  return;
+  return(
+    <>
+      <Head>
+        <Logo>
+          #TEEN_FAIR
+        </Logo>
+        <Searches>
+          
+        </Searches>
+      </Head>
+    </>
+  );
 };
 export default Header;
