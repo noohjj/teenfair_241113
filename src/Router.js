@@ -4,6 +4,7 @@ import Home from "./pages/home/Home";
 import Search from "./pages/search/Search";
 import Detail from "./pages/detail/Detail";
 import Location from "./pages/location/Location";
+import Footer from "./component/Footer";
 
 const Router = () => {
   return (
@@ -15,6 +16,7 @@ const Router = () => {
         <Route path="/search" element={<Search />} />
         <Route path="/detail" element={<Detail />} />
       </Routes>
+      <Footer/>
     </HashRouter>
   );
 };

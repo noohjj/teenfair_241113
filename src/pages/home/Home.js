@@ -1,6 +1,14 @@
 import { careData } from "../../api";
 import { useEffect, useState } from "react";
 import Banner from "../../component/Banner";
+import Data from "./components/Data";
+import { styled } from "styled-components";
+
+
+const Wrap = styled.section`
+padding:40px 15%;
+`;
+
 
 const Home = () => {
   const [care, setCare] = useState("");
@@ -20,6 +28,9 @@ const Home = () => {
   return (
     <>
       <Banner />
+      <Wrap>
+        <Data/>
+      </Wrap>
     </>
   );
 };
