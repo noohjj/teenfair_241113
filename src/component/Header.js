@@ -11,7 +11,6 @@ const Head = styled.header`
   border-bottom: 5px solid rgba(52, 90, 185, 0.7);
   display: flex;
   justify-content: space-between;
-  position: absolute;
   top: 0;
   left: 0;
   background-color: rgba(255, 255, 255, 0.6);
@@ -29,8 +28,8 @@ const Logo = styled.div`
 `;
 
 const Searches = styled.div`
-  margin-top: 10px;
-  font-size: 30px;
+  margin-top: 15px;
+  font-size: 25px;
   display: flex;
   font-weight: 500;
   color: #345ab9;

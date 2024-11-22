@@ -5,8 +5,7 @@ import { Link } from "react-router-dom";
 
 // 스타일 정의
 const Title = styled.div`
-font-size:30px;
-
+  font-size: 30px;
 `;
 
 const Wrap = styled.div`
@@ -22,9 +21,8 @@ const Wrap = styled.div`
     gap: 20px;
   }
 
-
   .button {
-    width: 315px;
+    width: 310px;
     height: 80px;
     padding: 10px;
     border: none;
@@ -63,19 +61,18 @@ const Data = () => {
 
   return (
     <>
-        <Title>#기관목록</Title>
-        <Wrap>
-            
-            <div className="button-container">
-                {centers.map((center, index) => (
-                <Link to = {`/detail${center.cnterNm}`}>
-                    <button key={index} className="button">
-                    #{center.cnterNm}
-                    </button>
-                </Link>                
-                ))}
-            </div>
-        </Wrap>
+      <Title>#기관목록</Title>
+      <Wrap>
+        <div className="button-container">
+          {centers.map((center, index) => (
+            <Link to={`/detail/${center.cnterNm}`}>
+              <button key={index} className="button">
+                #{center.cnterNm}
+              </button>
+            </Link>
+          ))}
+        </div>
+      </Wrap>
     </>
   );
 };
