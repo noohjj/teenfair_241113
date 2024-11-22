@@ -1,68 +1,73 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { careData } from "../../api"; // careData API 함수
 import { useState } from "react";
-import { mainStyle } from "../../GlobalStyled";
 
 const Wrap = styled.section`
-  padding: 20px ${mainStyle.pcPadding};
-  height: 80vh;
+  padding: 20px;
+  height: 100vh;
+  background-color: #f8f9fa;
 `;
 
 const Form = styled.form`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+
   input {
     all: unset;
-    width: 100%;
+    width: 50%;
     height: 50px;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    border-bottom: 3px solid #0c224e;
-    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 25px;
     padding: 0 20px;
+    box-sizing: border-box;
+    font-size: 16px;
+
     &::placeholder {
-      font-size: 18px;
+      font-size: 16px;
+      color: #aaa;
     }
   }
 `;
 
 const ConWrap = styled.div`
-  margin-top: 20px;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  row-gap: 50px;
-  column-gap: 30px;
+  grid-template-columns: repeat(3, 1fr); /* 3열 그리드 */
+  gap: 15px;
+  padding: 0 10px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr); /* 모바일에서는 2열 */
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr; /* 모바일에서는 1열 */
+  }
 `;
 
 const Con = styled.div`
-  a {
-    color: white;
-    text-decoration: none;
-  }
-  h3 {
-    margin-top: 10px;
-    font-size: 18px;
-  }
-  height: 115px;
   background-color: #007bff;
-  padding: 20px;
-  border-radius: 8px;
+  color: white;
+  text-align: center;
+  border-radius: 25px;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: bold;
   display: flex;
   justify-content: center;
   align-items: center;
-`;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 
-const Contitle = styled.div`
-  width: 400px;
-  height: 50px;
-  font-size: 15px;
-  color: white;
-  font-family: "Jua", serif;
-  background-color: #345ab9;
+  &:hover {
+    background-color: #0056b3; /* 호버 시 색상 변경 */
+  }
 `;
 
 const NoResultMessage = styled.div`
   font-size: 18px;
-  color: #103376;
+  color: #6c757d;
   text-align: center;
   margin-top: 50px;
 `;
@@ -73,39 +78,32 @@ const Search = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [term, setTerm] = useState([]); // term 상태 관리
+  const [term, setTerm] = useState([]); // 검색 결과 상태
 
+  // 검색 실행 함수
   const onSearch = async (data) => {
-    const { search: keyword } = data;
+    const { search: keyword } = data; // 검색어 가져오기
 
     try {
-      const { response } = await careData(keyword); // careData에서 결과 받기
-      const items = response.body?.items || []; // items를 안전하게 가져오기
+      const response = await careData(); // API 호출
+      console.log("API 응답:", response);
 
-      console.log("API Response:", response); // API 결과 확인
-      console.log("Items:", items); // items 확인
+      // 응답 데이터 구조 확인 후 배열인지 체크
+      const results = response?.response?.body?.items;
 
-      // 필터링 로직 추가
-      if (items.length === 0) {
-        console.log("No items found"); // items가 없을 경우 로그 출력
-      }
-
-      const filteredResults = items.filter(
-        (item) =>
-          item.ctpvNm &&
-          item.ctpvNm.toLowerCase().includes(keyword.toLowerCase()) // 지역 이름 필터링
-      );
-
-      console.log("Filtered Results:", filteredResults); // 필터링된 결과 확인
-      setTerm(filteredResults); // 필터링된 결과를 상태에 저장
-
-      // 필터링된 결과가 없을 경우 확인
-      if (filteredResults.length === 0) {
-        console.log("No matching results for the search term"); // 필터링 후 결과가 없을 경우 로그 출력
+      // 데이터가 배열인지 확인
+      if (Array.isArray(results)) {
+        // 검색어 필터링
+        const filteredResults = results.filter((item) =>
+          item.cnterNm?.includes(keyword)
+        );
+        setTerm(filteredResults); // 필터링된 결과 설정
+      } else {
+        setTerm([]); // 배열이 아닐 경우 빈 결과
       }
     } catch (error) {
-      console.log("Error:", error);
-      setTerm([]); // 오류 발생 시 빈 배열로 초기화
+      console.error("데이터 가져오기 오류:", error);
+      setTerm([]); // 오류 시 빈 결과
     }
   };
 
@@ -114,26 +112,19 @@ const Search = () => {
       <Form onSubmit={handleSubmit(onSearch)}>
         <input
           {...register("search", {
-            required: "검색어는 필수 입니다.",
+            required: "검색어는 필수입니다.",
           })}
           type="text"
-          placeholder="검색어를 입력해주세요" // 검색어 입력 받기
+          placeholder="검색어를 입력해주세요"
         />
       </Form>
 
-      {/* 검색 결과가 없을 경우 메시지 출력 */}
-      {term.length === 0 && (
+      {term.length === 0 ? (
         <NoResultMessage>검색어에 맞는 결과가 없습니다.</NoResultMessage>
-      )}
-
-      {term.length > 0 && (
+      ) : (
         <ConWrap>
-          {term.map((data) => (
-            <Con key={data.cnterNm}>
-              <Link to={`/detail/${data.cnterNm}`}>
-                <Contitle>{data.cnterNm}</Contitle>
-              </Link>
-            </Con>
+          {term.map((data, index) => (
+            <Con key={index}>{data.cnterNm}</Con>
           ))}
         </ConWrap>
       )}
