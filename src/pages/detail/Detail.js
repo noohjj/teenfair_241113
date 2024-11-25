@@ -3,6 +3,7 @@ import { careData } from "../../api";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { mainStyle } from "../../GlobalStyled";
+import PageTitle from "../../component/PageTitle";
 
 // 스타일 정의
 const Container = styled.div`
@@ -113,6 +114,7 @@ const Detail = () => {
 
   return (
     <Container>
+      <PageTitle title="detail"/>
       <Wrap>
         <Title>#{center.cnterNm}</Title>
         <Info>

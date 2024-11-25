@@ -4,6 +4,7 @@ import Banner from "../../component/Banner";
 import Data from "./components/Data";
 import { styled } from "styled-components";
 import Loading from "../../component/Loading";
+import PageTitle from "../../component/PageTitle";
 
 
 const Wrap = styled.section`
@@ -37,6 +38,7 @@ const Home = () => {
         <Loading/>
       ) : (
         <>
+          <PageTitle title="HOME"/>
           <Banner />
           <Wrap>
             <Data/>

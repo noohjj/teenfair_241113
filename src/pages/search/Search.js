@@ -4,6 +4,7 @@ import { careData } from "../../api"; // careData API 함수
 import { useState } from "react";
 import { mainStyle } from "../../GlobalStyled";
 import { Link } from "react-router-dom";
+import PageTitle from "../../component/PageTitle";
 
 const Wrap = styled.section`
   padding: 20px ${mainStyle.pcPadding};
@@ -121,6 +122,7 @@ const Search = () => {
 
   return (
     <Wrap>
+      <PageTitle title="검색"/>
       <Form onSubmit={handleSubmit(onSearch)}>
         <input
           {...register("search", {
