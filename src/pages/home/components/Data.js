@@ -39,6 +39,12 @@ const Wrap = styled.div`
   .button:hover {
     background-color: #0056b3;
   }
+
+  @media screen and (max-width:600px){
+    .button{
+      width: 280px;
+    }
+  }
 `;
 
 const Data = () => {

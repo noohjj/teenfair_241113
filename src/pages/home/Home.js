@@ -7,6 +7,9 @@ import { styled } from "styled-components";
 
 const Wrap = styled.section`
 padding:40px 15%;
+@media screen and (max-width:600px){
+  padding: 20px 10%;
+}
 `;
 
 

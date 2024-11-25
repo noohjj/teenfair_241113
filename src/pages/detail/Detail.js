@@ -10,6 +10,11 @@ const Container = styled.div`
   padding: 20px calc(${mainStyle.pcPadding}*2);
   width: 120%;
   font-family: "Jua", serif;
+
+  @media screen and (max-width:600px){
+    width: 100%;
+    padding: 20px ${mainStyle.moPadding};
+  }
 `;
 
 const Wrap = styled.div`
@@ -25,6 +30,12 @@ const Title = styled.h2`
   background-color: #007bff;
   color: white;
   border-radius: 10px;
+
+  @media screen and (max-width:600px){
+    font-size: 24px;
+    width: 300px;
+    height: 40px;
+  }
 `;
 
 const Info = styled.div`
@@ -53,6 +64,17 @@ const Info = styled.div`
     &:hover {
       text-decoration: underline;
     }
+  }
+
+  @media screen and (max-width:600px){
+    margin:0 auto;
+   p{
+    font-size: 18px;
+   } 
+
+   p:last-child{
+    font-size: 18px;
+   }
   }
 `;
 

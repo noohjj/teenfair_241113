@@ -12,6 +12,13 @@ const Foot = styled.div`
         font-size: 24px;
         color: white;
     }
+    @media screen and (max-width:600px) {
+        height: 100px;
+        
+        h3{
+           font-size : 15px;
+        }
+    }
 `;
 
 const Footer = () => {

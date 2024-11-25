@@ -78,6 +78,12 @@ const ImgWrap = styled.div`
     height: 80vh;
     object-fit: cover;
   }
+
+  @media screen and (max-width:600px){
+    img{
+      height: 60vh;
+    }
+  }
 `;
 
 const TextWrap = styled.div`
@@ -95,6 +101,18 @@ const TextWrap = styled.div`
   h5 {
     font-size: 30px;
     margin-top: 20px;
+  }
+
+  @media screen and (max-width:600px){
+    position: absolute;
+    top:55%;
+    left: 10%;
+    h3{
+      font-size: 20px;
+    }
+    h5{
+      font-size: 14px;
+    }
   }
 `;
 

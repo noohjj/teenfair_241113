@@ -15,6 +15,11 @@ const Head = styled.header`
   left: 0;
   background-color: rgba(255, 255, 255, 0.6);
   z-index: 1;
+
+  @media screen and (max-width:600px) {
+    padding: 20px ${mainStyle.moPadding};
+    height: 80px;
+  }
 `;
 
 const Logo = styled.div`
@@ -25,6 +30,13 @@ const Logo = styled.div`
     font-weight: bold;
     color: #345ab9;
   }
+  @media screen and (max-width:600px) {
+    line-height: 40px;
+    h4{
+      font-size: 20px;
+    }
+  }
+
 `;
 
 const Searches = styled.div`
@@ -36,6 +48,11 @@ const Searches = styled.div`
   h4 {
     margin-left: 20px;
     color: #345ab9;
+  }
+
+  @media screen and (max-width:600px) {
+    margin-top: 10px;
+    font-size: 18px;
   }
 `;
 

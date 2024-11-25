@@ -2,10 +2,11 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { careData } from "../../api"; // careData API 함수
 import { useState } from "react";
+import { mainStyle } from "../../GlobalStyled";
+import { Link } from "react-router-dom";
 
 const Wrap = styled.section`
-  padding: 20px;
-  height: 100vh;
+  padding: 20px ${mainStyle.pcPadding};
   background-color: #f8f9fa;
 `;
 
@@ -16,10 +17,9 @@ const Form = styled.form`
 
   input {
     all: unset;
-    width: 50%;
-    height: 50px;
-    border: 1px solid #ddd;
-    border-radius: 25px;
+    width: 80%;
+    height: 60px;
+    border-bottom: 3px solid #0C224E;
     padding: 0 20px;
     box-sizing: border-box;
     font-size: 16px;
@@ -32,10 +32,12 @@ const Form = styled.form`
 `;
 
 const ConWrap = styled.div`
+  margin-top: 60px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3열 그리드 */
+  grid-template-columns: repeat(2, 1fr); /* 3열 그리드 */
   gap: 15px;
   padding: 0 10px;
+  margin-bottom: 60px;
 
   @media (max-width: 768px) {
     grid-template-columns: repeat(2, 1fr); /* 모바일에서는 2열 */
@@ -48,6 +50,7 @@ const ConWrap = styled.div`
 
 const Con = styled.div`
   background-color: #007bff;
+  height: 60px;
   color: white;
   text-align: center;
   border-radius: 25px;
@@ -70,6 +73,7 @@ const NoResultMessage = styled.div`
   color: #6c757d;
   text-align: center;
   margin-top: 50px;
+  margin-bottom: 50px;
 `;
 
 const Search = () => {
@@ -84,18 +88,26 @@ const Search = () => {
   const onSearch = async (data) => {
     const { search: keyword } = data; // 검색어 가져오기
 
+    // 검색어가 공백만 포함되었는지 확인
+    if (!keyword.trim()) {
+      setTerm([]);
+      return;
+    }
+
     try {
       const response = await careData(); // API 호출
       console.log("API 응답:", response);
 
       // 응답 데이터 구조 확인 후 배열인지 체크
-      const results = response?.response?.body?.items;
+      const results = response?.response?.body?.items?.item;
 
       // 데이터가 배열인지 확인
       if (Array.isArray(results)) {
         // 검색어 필터링
-        const filteredResults = results.filter((item) =>
-          item.cnterNm?.includes(keyword)
+        const filteredResults = results.filter(
+          (item) =>
+            item.cnterNm?.includes(keyword) || // 센터명 검색
+            item.ctpvNm?.includes(keyword)    // 지역 검색
         );
         setTerm(filteredResults); // 필터링된 결과 설정
       } else {
@@ -115,7 +127,7 @@ const Search = () => {
             required: "검색어는 필수입니다.",
           })}
           type="text"
-          placeholder="검색어를 입력해주세요"
+          placeholder="지역명(ex:부산, 서울, 경남)를 입력해주세요"
         />
       </Form>
 
@@ -124,7 +136,9 @@ const Search = () => {
       ) : (
         <ConWrap>
           {term.map((data, index) => (
-            <Con key={index}>{data.cnterNm}</Con>
+            <Link to = {`/detail/${data.cnterNm}`}>
+              <Con key={index}>#{data.cnterNm}</Con>
+            </Link>
           ))}
         </ConWrap>
       )}
