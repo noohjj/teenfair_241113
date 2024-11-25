@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/teenfair_241113/static/js/main.23a12f6b.js",
+    "main.js": "/teenfair_241113/static/js/main.7e59edf2.js",
     "index.html": "/teenfair_241113/index.html",
-    "main.23a12f6b.js.map": "/teenfair_241113/static/js/main.23a12f6b.js.map"
+    "main.7e59edf2.js.map": "/teenfair_241113/static/js/main.7e59edf2.js.map"
   },
   "entrypoints": [
-    "static/js/main.23a12f6b.js"
+    "static/js/main.7e59edf2.js"
   ]
 }
