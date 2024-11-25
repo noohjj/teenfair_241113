@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Banner from "../../component/Banner";
 import Data from "./components/Data";
 import { styled } from "styled-components";
+import Loading from "../../component/Loading";
 
 
 const Wrap = styled.section`
@@ -15,6 +16,7 @@ padding:40px 15%;
 
 const Home = () => {
   const [care, setCare] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
@@ -22,6 +24,7 @@ const Home = () => {
         const care = await careData();
         setCare(care);
         console.log(care);
+        setIsLoading(false)
       } catch (error) {
         console.log(error);
       }
@@ -29,12 +32,19 @@ const Home = () => {
   }, []);
 
   return (
-    <>
-      <Banner />
-      <Wrap>
-        <Data/>
-      </Wrap>
-    </>
+    <div>
+      {isLoading ? (
+        <Loading/>
+      ) : (
+        <>
+          <Banner />
+          <Wrap>
+            <Data/>
+          </Wrap>
+        </>
+      )}
+    </div>
+    
   );
 };
 
